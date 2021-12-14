@@ -22,13 +22,27 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     // game
     const gameStats = document.createElement("div");
 
-    teams = document.createElement("p");
-    teams.textContent = `${game.vTeam.triCode} (visitors) vs. ${game.hTeam.triCode} (home)`;
-    gameStats.append(teams);
+    const visitorTeam = document.createElement("div");
+    vteam = document.createElement("a");
+    vteam.textContent = `${game.vTeam.triCode} - ${game.vTeam.score}`;
+    vteam.onclick = function () {
+      test(game.vTeam.teamId);
+    };
+    visitorTeam.append(vteam);
+    gameStats.append(visitorTeam);
 
-    score = document.createElement("p");
-    score.textContent = `${game.vTeam.score} - ${game.hTeam.score}`;
+    score = document.createElement("div");
+    score.textContent = ` vs `;
     gameStats.append(score);
+
+    const homeTeam = document.createElement("div");
+    hteam = document.createElement("a");
+    hteam.textContent = `${game.hTeam.triCode} - ${game.hTeam.score}`;
+    hteam.onclick = function () {
+      test(game.hTeam.teamId);
+    };
+    homeTeam.append(hteam);
+    gameStats.append(homeTeam);
 
     div.appendChild(gameStats);
 
@@ -36,3 +50,18 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     document.querySelector("#games").appendChild(div);
   });
 });
+
+// Test method
+function test(teamId) {
+  chrome.runtime.sendMessage(
+    {
+      message: "showTeam",
+      teamId: teamId,
+    },
+    function (response) {
+      if (response === "success") {
+        window.location.href = "../pages/team.html";
+      }
+    }
+  );
+}

@@ -18,5 +18,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       })
       .catch((err) => console.log(err));
     return true;
+  } else if (request.message === "showTeam") {
+    teamId = request.teamId;
+    chrome.browserAction.setPopup({ popup: "../pages/team.html" });
+    sendResponse("success");
   }
 });
