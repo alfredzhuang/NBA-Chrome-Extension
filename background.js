@@ -1,6 +1,15 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "getScoreboard") {
-    fetch("http://data.nba.net/10s/prod/v1/20211021/scoreboard.json")
+    const date = new Date();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    const formattedDate = `${year}${month}${day}`;
+
+    fetch(
+      "http://data.nba.net/10s/prod/v1/" + formattedDate + "/scoreboard.json"
+    )
       .then((res) => {
         return res.json();
       })
