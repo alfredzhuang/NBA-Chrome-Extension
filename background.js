@@ -30,7 +30,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return res.json();
       })
       .then((json) => {
-        sendResponse(json);
+        // Find the team's stats and send it back
+        let teams = json.league.standard.conference;
+        let teamStats = [];
+        for (const team of teams.east) {
+          if (team.teamId === teamId) {
+            teamStats = team;
+          }
+        }
+        for (const team of teams.west) {
+          if (team.teamId === teamId) {
+            teamStats = team;
+          }
+        }
+        sendResponse(teamStats);
       })
       .catch((err) => console.log(err));
     return true;
