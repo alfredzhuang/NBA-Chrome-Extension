@@ -11,33 +11,42 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     div.className = "game";
 
     // add text content
-    const location = document.createElement("p");
-    location.textContent = `${game.arena.name} | ${game.arena.city} | ${game.arena.stateAbbr} | ${game.arena.country}`;
-    div.appendChild(location);
 
-    const time = document.createElement("p");
-    time.textContent = `Start time: ${game.startTimeEastern} | Current Duration: ${game.gameDuration.hours} hours and ${game.gameDuration.minutes} minutes`;
+    // Start time
+    const time = document.createElement("div");
+    time.textContent = `Start time: ${game.startTimeEastern}`;
     div.appendChild(time);
 
-    // game
-    const gameStats = document.createElement("div");
+    // Current duration
+    const totalTime = document.createElement("div");
+    totalTime.textContent = `Current Duration: ${
+      game.gameDuration.hours + 0
+    } hours and ${game.gameDuration.minutes + 0} minutes`;
+    div.appendChild(totalTime);
 
+    // Game score
+    const gameStats = document.createElement("div");
+    gameStats.className = "game-stats";
+
+    // Visiting team
     const visitorTeam = document.createElement("div");
     vteam = document.createElement("a");
-    vteam.textContent = `${game.vTeam.triCode} - ${game.vTeam.score}`;
+    vteam.textContent = `${game.vTeam.triCode} - ${game.vTeam.score + 0}`;
     vteam.onclick = function () {
       test(game.vTeam.teamId);
     };
     visitorTeam.append(vteam);
     gameStats.append(visitorTeam);
 
-    score = document.createElement("div");
-    score.textContent = ` vs `;
-    gameStats.append(score);
+    // vs
+    versus = document.createElement("div");
+    versus.textContent = ` vs `;
+    gameStats.append(versus);
 
+    // Home team
     const homeTeam = document.createElement("div");
     hteam = document.createElement("a");
-    hteam.textContent = `${game.hTeam.triCode} - ${game.hTeam.score}`;
+    hteam.textContent = `${game.hTeam.triCode} - ${game.hTeam.score + 0}`;
     hteam.onclick = function () {
       test(game.hTeam.teamId);
     };
@@ -45,6 +54,10 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     gameStats.append(homeTeam);
 
     div.appendChild(gameStats);
+
+    const location = document.createElement("div");
+    location.textContent = `${game.arena.name} (${game.arena.city}, ${game.arena.stateAbbr}, ${game.arena.country})`;
+    div.appendChild(location);
 
     // append to the html page
     document.querySelector("#games").appendChild(div);

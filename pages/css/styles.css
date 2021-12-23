@@ -1,3 +1,13 @@
+/**
+
+font-family: 'Roboto Condensed', sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+
+card colors: rgb(252, 186, 3) and rgb(235, 235, 235)
+card background : rgb(94, 94, 94)
+background : rgb(46, 46, 46)
+*/
+
 body {
   background: rgb(46, 46, 46);
 }
@@ -20,11 +30,23 @@ h1 {
 }
 
 .game {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 10px;
   font-family: "Source Sans Pro", sans-serif;
   border-radius: 25px;
   background: rgb(94, 94, 94);
   margin: 10px;
   color: rgb(235, 235, 235);
+  padding: 10px;
+}
+
+.game-stats {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2em;
+  align-items: baseline;
 }
 
 /** Team page */
