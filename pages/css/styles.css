@@ -1,0 +1,30 @@
+body {
+  background: rgb(46, 46, 46);
+}
+
+h1 {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+/** Home page */
+
+#title {
+  color: rgb(252, 186, 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#games {
+  width: 350px;
+}
+
+.game {
+  font-family: "Source Sans Pro", sans-serif;
+  border-radius: 25px;
+  background: rgb(94, 94, 94);
+  margin: 10px;
+  color: rgb(235, 235, 235);
+}
+
+/** Team page */
