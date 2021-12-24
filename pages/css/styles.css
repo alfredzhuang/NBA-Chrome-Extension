@@ -6,6 +6,7 @@ font-family: 'Source Sans Pro', sans-serif;
 card colors: rgb(252, 186, 3) and rgb(235, 235, 235)
 card background : rgb(94, 94, 94)
 background : rgb(46, 46, 46)
+
 */
 
 body {
@@ -14,6 +15,10 @@ body {
 
 h1 {
   font-family: "Roboto Condensed", sans-serif;
+}
+
+a:hover {
+  color: rgb(252, 186, 3);
 }
 
 /** Home page */
