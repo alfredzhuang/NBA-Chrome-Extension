@@ -1,9 +1,12 @@
 chrome.runtime.sendMessage({ message: "getTeam" }, function (response) {
   let team = response;
 
-  const div = document.createElement("div");
-
-  const teamName = document.createElement("p");
+  // Title
+  const teamLogo = document.createElement("img");
+  teamLogo.className = "logo";
+  teamLogo.src = `../images/${team.teamId}.svg`;
+  document.querySelector("#title").appendChild(teamLogo);
+  const teamName = document.createElement("h1");
   teamName.textContent =
     team.teamSitesOnly.teamName +
     " " +
@@ -11,8 +14,11 @@ chrome.runtime.sendMessage({ message: "getTeam" }, function (response) {
     " (" +
     team.teamSitesOnly.teamTricode +
     ")";
-  div.appendChild(teamName);
+  document.querySelector("#title").appendChild(teamName);
 
+  // Stat card
+  const div = document.createElement("div");
+  div.className = "team-stats";
   const stats = document.createElement("p");
   stats.textContent =
     team.win +
@@ -25,7 +31,9 @@ chrome.runtime.sendMessage({ message: "getTeam" }, function (response) {
     team.confRank;
   div.appendChild(stats);
 
-  document.querySelector("#teamStats").appendChild(div);
+  // team.teamId (pic)
+
+  document.querySelector("#team").appendChild(div);
 });
 
 document.querySelector("#return").addEventListener("click", function () {
