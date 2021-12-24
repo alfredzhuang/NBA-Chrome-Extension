@@ -20,8 +20,10 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     // Current duration
     const totalTime = document.createElement("div");
     totalTime.textContent = `Current Duration: ${
-      game.gameDuration.hours + 0
-    } hours and ${game.gameDuration.minutes + 0} minutes`;
+      game.gameDuration.hours == "" ? 0 : game.gameDuration.hours
+    } hours and ${
+      game.gameDuration.minutes == "" ? 0 : game.gameDuration.minutes
+    } minutes`;
     div.appendChild(totalTime);
 
     // Game score
@@ -31,7 +33,14 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     // Visiting team
     const visitorTeam = document.createElement("div");
     vteam = document.createElement("a");
-    vteam.textContent = `${game.vTeam.triCode} - ${game.vTeam.score + 0}`;
+    const vteamLogo = document.createElement("img");
+    vteamLogo.src = `../images/${game.vTeam.teamId}.svg`;
+    vteam.appendChild(vteamLogo);
+    const vteamScore = document.createElement("div");
+    vteamScore.textContent = `${game.vTeam.triCode} - ${
+      game.vTeam.score == "" ? 0 : game.vTeam.score
+    }`;
+    vteam.appendChild(vteamScore);
     vteam.onclick = function () {
       test(game.vTeam.teamId);
     };
@@ -46,7 +55,14 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     // Home team
     const homeTeam = document.createElement("div");
     hteam = document.createElement("a");
-    hteam.textContent = `${game.hTeam.triCode} - ${game.hTeam.score + 0}`;
+    const hteamLogo = document.createElement("img");
+    hteamLogo.src = `../images/${game.hTeam.teamId}.svg`;
+    hteam.appendChild(hteamLogo);
+    const hteamScore = document.createElement("div");
+    hteamScore.textContent = `${game.hTeam.triCode} - ${
+      game.hTeam.score == "" ? 0 : game.hTeam.score
+    }`;
+    hteam.appendChild(hteamScore);
     hteam.onclick = function () {
       test(game.hTeam.teamId);
     };
@@ -56,7 +72,7 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
     div.appendChild(gameStats);
 
     const location = document.createElement("div");
-    location.textContent = `${game.arena.name} (${game.arena.city}, ${game.arena.stateAbbr}, ${game.arena.country})`;
+    location.textContent = `@ ${game.arena.name} (${game.arena.city}, ${game.arena.stateAbbr}, ${game.arena.country})`;
     div.appendChild(location);
 
     // append to the html page
