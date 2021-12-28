@@ -24,15 +24,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     teamId = request.teamId;
     chrome.browserAction.setPopup({ popup: "../pages/team.html" });
     sendResponse("success");
-  } else if (request.message === "getTeam") {
+  } else if (request.message === "getTeamStandings") {
     fetch("http://data.nba.net/10s/prod/v1/current/standings_conference.json")
       .then((res) => {
         return res.json();
       })
       .then((json) => {
-        // Find the team's stats and send it back
+        // Find the team and send it back
         let teams = json.league.standard.conference;
-        let teamStats = [];
+        let teamStats;
         for (const team of teams.east) {
           if (team.teamId === teamId) {
             teamStats = team;
@@ -52,6 +52,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       teamId = "";
       sendResponse("success");
     });
+    return true;
+  } else if (request.message === "getTeamStats") {
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    if (month >= 1 || month <= 9) {
+      year -= 1;
+    }
+    fetch(
+      "https://data.nba.net/10s/prod/v1/" + year + "/team_stats_rankings.json"
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        // Find the team's stats and send it back
+        let teams = json.league.standard.regularSeason.teams;
+        let teamStats;
+        for (const team of teams) {
+          if (team.teamId === teamId) {
+            teamStats = team;
+          }
+        }
+        sendResponse(teamStats);
+      })
+      .catch((err) => console.log(err));
     return true;
   }
 });
