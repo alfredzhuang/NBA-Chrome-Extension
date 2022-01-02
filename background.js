@@ -16,7 +16,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     const formattedDate = `${year}${month}${day}`;
-    console.log(formattedDate);
 
     fetch(
       "http://data.nba.net/10s/prod/v1/" + formattedDate + "/scoreboard.json"
