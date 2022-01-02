@@ -58,9 +58,13 @@ a:hover {
 /** Team page */
 
 #return {
-  background: rgb(184, 20, 20);
+  background: rgb(94, 94, 94);
+  color: rgb(235, 235, 235);
   font-family: "Source Sans Pro", sans-serif;
   margin: 10px 10px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
 .logo {
