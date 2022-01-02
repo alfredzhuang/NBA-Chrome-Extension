@@ -3,11 +3,20 @@ let teamId = "";
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "getScoreboard") {
     const date = new Date();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
     const year = date.getFullYear();
 
+    // attach 0 to beginning if 1 digit
+    if (month >= 1 && month <= 9) {
+      month = 0 + String(month);
+    }
+    if (day >= 1 && day <= 9) {
+      day = 0 + String(day);
+    }
+
     const formattedDate = `${year}${month}${day}`;
+    console.log(formattedDate);
 
     fetch(
       "http://data.nba.net/10s/prod/v1/" + formattedDate + "/scoreboard.json"
