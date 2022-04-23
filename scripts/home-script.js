@@ -71,17 +71,17 @@ chrome.runtime.sendMessage({ message: "getScoreboard" }, function (response) {
 
     div.appendChild(gameStats);
 
-    // Location
-    const location = document.createElement("div");
-    location.textContent = `@ ${game.arena.name} (${game.arena.city}, ${game.arena.stateAbbr}, ${game.arena.country})`;
-    div.appendChild(location);
-
     // Playoffs
     if (game.playoffs) {
       const playoffs = document.createElement("div");
       playoffs.textContent = `Game ${game.playoffs.gameNumInSeries} in Series ${game.playoffs.roundNum} (${game.playoffs.seriesSummaryText})`;
       div.appendChild(playoffs);
     }
+
+    // Location
+    const location = document.createElement("div");
+    location.textContent = `@ ${game.arena.name} (${game.arena.city}, ${game.arena.stateAbbr}, ${game.arena.country})`;
+    div.appendChild(location);
 
     // append to the html page
     document.querySelector("#games").appendChild(div);
