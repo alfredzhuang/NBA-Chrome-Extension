@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   } else if (request.message === "showTeam") {
     teamId = request.teamId;
-    chrome.browserAction.setPopup({ popup: "../pages/team.html" });
+    chrome.action.setPopup({ popup: "../pages/team.html" });
     sendResponse("success");
   } else if (request.message === "getTeamStandings") {
     fetch("http://data.nba.net/10s/prod/v1/current/standings_conference.json")
@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .catch((err) => console.log(err));
     return true;
   } else if (request.message === "homePage") {
-    chrome.browserAction.setPopup({ popup: "../pages/home.html" }, function () {
+    chrome.action.setPopup({ popup: "../pages/home.html" }, function () {
       teamId = "";
       sendResponse("success");
     });
